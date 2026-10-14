@@ -12,7 +12,7 @@ function SelectorTema() {
   const { tema, alternar, ponerClaro, ponerOscuro } = useTheme()
 
   return (
-    <article className="h-full border border-linea bg-papel p-6 md:p-8">
+    <article className="h-full border border-linea bg-papel p-6 md:p-8 lg:col-span-2">
       <p className="text-xs uppercase tracking-[0.18em] text-tenue">Contexto / useContext</p>
       <h3 className="mt-2 font-serif text-4xl leading-none">Luz de la feria</h3>
 
