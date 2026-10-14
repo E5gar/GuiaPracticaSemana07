@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { Search, X, TriangleAlert } from 'lucide-react'
 import { puestos } from '../data/puestos'
 import { productos } from '../data/productos'
@@ -27,20 +27,35 @@ const indice = productos.map((producto) => {
 
 function Buscador() {
   const [texto, setTexto] = useState('')
+  const entrada = useRef(null)
 
   const valido = permitido.test(texto)
   const consulta = normalizar(texto)
-  const palabras = consulta ? consulta.split(/\s+/) : []
-  const resultados =
-    valido && palabras.length > 0
-      ? indice.filter((item) => palabras.every((palabra) => item.clave.includes(palabra)))
-      : []
+  const hayConsulta = consulta.length > 0
+
+  const resultados = useMemo(() => {
+    if (!valido || !hayConsulta) return []
+    const palabras = consulta.split(/\s+/)
+    return indice.filter((item) => palabras.every((palabra) => item.clave.includes(palabra)))
+  }, [valido, hayConsulta, consulta])
+
+  const cambiar = useCallback((e) => setTexto(e.target.value), [])
+
+  const elegir = useCallback((sugerencia) => {
+    setTexto(sugerencia)
+    entrada.current.focus()
+  }, [])
+
+  const limpiar = useCallback(() => {
+    setTexto('')
+    entrada.current.focus()
+  }, [])
 
   let aviso = null
   if (!valido) aviso = 'Solo se permiten letras, números, espacios, punto y guion.'
-  else if (texto.length > 0 && palabras.length === 0) aviso = 'Escribe una palabra, no solo espacios.'
+  else if (texto.length > 0 && !hayConsulta) aviso = 'Escribe una palabra, no solo espacios.'
   else if (texto.length >= LIMITE) aviso = `Llegaste al máximo de ${LIMITE} caracteres.`
-  else if (palabras.length > 0 && resultados.length === 0) aviso = `Sin coincidencias para "${texto.trim()}".`
+  else if (hayConsulta && resultados.length === 0) aviso = `Sin coincidencias para "${texto.trim()}".`
 
   return (
     <section id="buscador" className="border-b border-linea bg-arena">
@@ -54,10 +69,11 @@ function Buscador() {
           <div className="relative mt-10">
             <Search size={22} className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2" />
             <input
+              ref={entrada}
               type="text"
               value={texto}
               maxLength={LIMITE}
-              onChange={(e) => setTexto(e.target.value)}
+              onChange={cambiar}
               placeholder="Papa, trucha, mate..."
               aria-label="Buscar productos"
               aria-invalid={!valido}
@@ -65,7 +81,7 @@ function Buscador() {
             />
             {texto && (
               <button
-                onClick={() => setTexto('')}
+                onClick={limpiar}
                 aria-label="Borrar búsqueda"
                 className="absolute right-0 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full hover:bg-tinta hover:text-papel"
               >
@@ -77,7 +93,7 @@ function Buscador() {
           <div className="mt-3 flex items-start justify-between gap-4 text-sm" role="status" aria-live="polite">
             <p className="flex items-center gap-2">
               {aviso && <TriangleAlert size={16} className="shrink-0 text-brasa" />}
-              {aviso ?? (palabras.length > 0 ? `${resultados.length} productos encontrados` : '')}
+              {aviso ?? (hayConsulta ? `${resultados.length} productos encontrados` : '')}
             </p>
             <span className="tabular-nums text-tinta/75">
               {texto.length}/{LIMITE}
@@ -88,7 +104,7 @@ function Buscador() {
             {sugerencias.map((sugerencia) => (
               <button
                 key={sugerencia}
-                onClick={() => setTexto(sugerencia)}
+                onClick={() => elegir(sugerencia)}
                 className="rounded-full border border-tinta px-4 py-1.5 text-sm transition-colors hover:bg-tinta hover:text-papel"
               >
                 {sugerencia}

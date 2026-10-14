@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RefreshCw, CircleCheck, CircleAlert, Trash2, LoaderCircle, Info } from 'lucide-react'
 import { puestos } from '../data/puestos'
 import { productos } from '../data/productos'
@@ -17,26 +17,26 @@ function SimuladorCarga() {
   const [memoria, setMemoria] = useState(0)
   const [funcion, setFuncion] = useState('Ninguna')
   const [liberada, setLiberada] = useState(null)
-  const temporizador = useRef(null)
 
-  useEffect(() => () => clearTimeout(temporizador.current), [])
-
-  const simularCarga = () => {
-    clearTimeout(temporizador.current)
-    setFuncion('simularCarga()')
-    setLiberada(null)
-    setMensaje({ tipo: 'cargando', texto: 'Cargando puestos y productos de la feria...' })
-    temporizador.current = setTimeout(() => {
+  useEffect(() => {
+    if (mensaje.tipo !== 'cargando') return
+    const temporizador = setTimeout(() => {
       setMemoria((actual) => actual + 12.5)
       setMensaje({
         tipo: 'listo',
         texto: `Carga terminada: ${puestos.length} puestos y ${productos.length} productos en memoria.`,
       })
     }, 2200)
+    return () => clearTimeout(temporizador)
+  }, [mensaje.tipo])
+
+  const simularCarga = () => {
+    setFuncion('simularCarga()')
+    setLiberada(null)
+    setMensaje({ tipo: 'cargando', texto: 'Cargando puestos y productos de la feria...' })
   }
 
   const mostrarExito = () => {
-    clearTimeout(temporizador.current)
     setFuncion('mostrarExito()')
     setLiberada(null)
     setMemoria((actual) => actual + 1.2)
@@ -44,7 +44,6 @@ function SimuladorCarga() {
   }
 
   const mostrarError = () => {
-    clearTimeout(temporizador.current)
     setFuncion('mostrarError()')
     setLiberada(null)
     setMemoria((actual) => actual + 0.6)
@@ -52,7 +51,6 @@ function SimuladorCarga() {
   }
 
   const limpiarRecursos = () => {
-    clearTimeout(temporizador.current)
     setFuncion('limpiarRecursos()')
     setLiberada(memoria)
     setMemoria(0)
