@@ -13,7 +13,7 @@ const estilos = {
 }
 
 function SimuladorCarga() {
-  const [mensaje, setMensaje] = useState({ tipo: 'reposo', texto: 'Sin actividad. Usa los botones para simular un estado.' })
+  const [mensaje, setMensaje] = useState({ tipo: 'reposo', texto: 'Sin actividad.' })
   const [memoria, setMemoria] = useState(0)
   const [funcion, setFuncion] = useState('Ninguna')
   const [liberada, setLiberada] = useState(null)
@@ -48,7 +48,7 @@ function SimuladorCarga() {
     setFuncion('mostrarError()')
     setLiberada(null)
     setMemoria((actual) => actual + 0.6)
-    setMensaje({ tipo: 'error', texto: 'No se pudo conectar con el servidor de la feria.' })
+    setMensaje({ tipo: 'error', texto: 'No se pudo conectar con el servidor.' })
   }
 
   const limpiarRecursos = () => {

@@ -20,7 +20,7 @@ function Avenida({ cuadra, onSelect }) {
             </h2>
           </div>
           <p className="text-tenue">
-            La feria corre paralela a la Calle Real. Elige una cuadra para ver solo los puestos que se instalan en ella.
+            La feria corre paralela a la Calle Real.
           </p>
         </div>
 

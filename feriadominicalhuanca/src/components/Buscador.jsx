@@ -77,7 +77,7 @@ function Buscador() {
           <div className="mt-3 flex items-start justify-between gap-4 text-sm" role="status" aria-live="polite">
             <p className="flex items-center gap-2">
               {aviso && <TriangleAlert size={16} className="shrink-0 text-brasa" />}
-              {aviso ?? (palabras.length > 0 ? `${resultados.length} productos encontrados` : 'Los resultados aparecen mientras escribes.')}
+              {aviso ?? (palabras.length > 0 ? `${resultados.length} productos encontrados` : '')}
             </p>
             <span className="tabular-nums text-tinta/75">
               {texto.length}/{LIMITE}
@@ -111,7 +111,7 @@ function Buscador() {
             </>
           ) : (
             <p className="grid h-full min-h-56 place-items-center text-center font-serif text-3xl text-tenue">
-              Aquí aparecerán los productos
+              Sin Resultados
             </p>
           )}
         </div>

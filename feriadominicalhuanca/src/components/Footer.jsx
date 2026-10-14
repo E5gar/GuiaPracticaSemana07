@@ -44,17 +44,13 @@ function Footer() {
           <div>
             <p className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-white/70">
               <GraduationCap size={14} />
-              Proyecto
+              Universidad Nacional del Centro del Perú
             </p>
-            <p className="mt-3 text-base">Universidad Nacional del Centro del Perú - Facultad de Ingeniería de Sistemas</p>
+            <p className="mt-3 text-base">Facultad de Ingeniería de Sistemas</p>
             <p className="mt-3 text-base">Asignatura Desarrollo de Aplicaciones Web</p>
             <p className="mt-1 text-white/70">Gago Uribe Edgar Robert</p>
           </div>
         </div>
-
-        <p className="mt-16 text-xs text-white/60">
-          Feria Dominical de Huancayo, versión en línea. 2026.
-        </p>
       </div>
     </footer>
   );

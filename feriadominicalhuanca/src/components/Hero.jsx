@@ -26,7 +26,7 @@ function Hero() {
           Todos los domingos / Huancayo, Junín
         </p>
         <h1 className="mt-5 max-w-5xl font-serif text-6xl leading-[0.92] motion-safe:animate-subir md:text-9xl">
-          Cinco cuadras de domingo, <em>en línea</em>
+          Feria Dominical <em></em>
         </h1>
         <p className="mt-8 max-w-xl text-lg text-white/85 motion-safe:animate-subir">
           Recorre puesto por puesto la feria que se extiende sobre la Av. Huancavelica, en paralelo a la Calle Real.
