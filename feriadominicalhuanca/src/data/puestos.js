@@ -1,7 +1,7 @@
 const pexels = (id) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=900`
 const unsplash = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=70`
 
-export const imagenHero = 'https://images.pexels.com/photos/26088690/pexels-photo-26088690.jpeg?auto=compress&cs=tinysrgb&w=1800'
+export const imagenHero = '/fondo_feria.jpg'
 
 export const puestos = [
   {

@@ -19,7 +19,7 @@ function Hero() {
         }}
         className="absolute inset-0 -z-20 size-full object-cover"
       />
-      <div className="absolute inset-0 -z-10 bg-linear-to-b from-black/25 via-black/25 to-black/75" />
+      <div className="absolute inset-0 -z-10 bg-linear-to-b from-black/55 via-black/55 to-black/85" />
 
       <div className="mx-auto flex min-h-[82vh] max-w-7xl flex-col justify-end px-5 pb-10 pt-32 text-white">
         <p className="text-xs uppercase tracking-[0.18em] text-white/80 motion-safe:animate-subir">
